@@ -1,5 +1,6 @@
 "use client";
 
+import { usePostsMutation } from "@/hooks/usePostMutation";
 import { usePosts } from "@/hooks/usePosts";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -12,12 +13,14 @@ const API_URL = 'https://jsonplaceholder.typicode.com';
 const Posts = () => {
   const { data } = usePosts(isAuth);
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["createPost"],
-    mutationFn: async (newPost) => {
-      axios.post(`${API_URL}/posts`, newPost)
-    }
-  })
+  // const { mutate, isPending } = useMutation({
+  //   mutationKey: ["createPost"],
+  //   mutationFn: async (newPost) => {
+  //     axios.post(`${API_URL}/posts`, newPost)
+  //   }
+  // })
+
+  const { mutate, isPending } = usePostsMutation("createPost", API_URL)
 
   return (
     <>
